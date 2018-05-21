@@ -121,12 +121,6 @@
 .nextSlide:hover {
   background-color: rgba(0, 0, 0, 0.8);
 }
-/*.captionContainer {
-  text-align: center;
-  background-color: black;
-  padding: 2px 16px;
-  color: white;
-}*/
 
 img.demo {
   opacity: 0.6;
