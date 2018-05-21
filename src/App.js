@@ -20,6 +20,7 @@ class App extends Component {
 
     this.enterHandler = this.enterHandler.bind(this);
     this.getData = this.getData.bind(this);
+    this.loadMore = this.loadMore.bind(this);
 
     if(this.state.input){
       this.getData(this.state.input)
@@ -35,21 +36,37 @@ class App extends Component {
     return decodeURIComponent(results[2].replace(/\+/g, " "));
   }
   enterHandler(e) {
-    if (e.key == 'Enter' && e.target.value != '') {
-      this.getData(e.target.value);
+    if (e.target.id == 'search-input' && e.key == 'Enter' && e.target.value != '') {
+      let value = e.target.value;
       e.target.value = '';
+      document.getElementById('loader').style.display = 'none';
+      this.setState({data:[]}, () => {
+        this.getData(value);
+      })
+    }
+  }
+  loadMore() {
+    let value = this.state.input;
+    console.log(value);
+    if(value != '' && this.state.data.length != 0){
+      this.getData(value);
     }
   }
   getData(value){
     let newUrl = window.location.origin.split(-1)+"?q="+encodeURIComponent(value);
+    let startIndex = 1;
     window.history.pushState({path:newUrl}, '', newUrl);
 
     if(this.state.input != value){
       this.setState({input:value});
     }
-    axios.get('https://www.googleapis.com/customsearch/v1?q='+value+'&num=10&start=1&cr=countryIN&searchType=image&fileType=jpg&alt=json&cx=004555727106795431299:gahwu7gy460&key=AIzaSyAQT7VUBn4c1sczrG_LGeqW0tXxERO_hTs')
+    if(this.state.data && this.state.input == value){
+      startIndex += this.state.data.length;
+    }
+    console.log(startIndex);
+    if(value)
+    axios.get('https://www.googleapis.com/customsearch/v1?q='+value+'&num=10&start='+startIndex+'&cr=countryIN&searchType=image&fileType=jpg&alt=json&cx=017081785250981186715:gmopwuw4u-o&key=AIzaSyATwOq-sGG6e0xsEytpvojf0c0ZVBsY75s')
     .then((response) => {
-      console.log(response.data);
       if (response.data && response.data.items.length!=0) {
         let arr = [];
         response.data.items.forEach((obj,index) => {
@@ -58,7 +75,14 @@ class App extends Component {
             "thumbnail": obj.image.thumbnailLink
           })
         })
-        this.setState({data : arr});
+        if(this.state.data.length == 0){
+          this.setState({data : arr});
+        }else {
+          let data = [...this.state.data, ...arr];
+          console.log(data);
+          this.setState({data : data});
+        }
+        document.getElementById('loader').style.display = 'block';
       }
     });
   }
@@ -69,10 +93,11 @@ class App extends Component {
           <h1 className="App-title">Image Search</h1>
         </header>
         <div className="form-group search-box">
-          <input className="form-control" placeholder="Enter keyword" type="search" onKeyPress={this.enterHandler} />
+          <input id="search-input" className="form-control" placeholder="Enter keyword" type="search" onKeyPress={this.enterHandler} />
         </div>
         <div className="App-body">
           {this.state.data.length!=0?<Gallery images={this.state.data}/>:''}
+          <button className="btn btn-default" onClick={this.loadMore} id="loader">Load More</button>
         </div>
       </div>
     );
