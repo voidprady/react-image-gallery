@@ -1,0 +1,153 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.search-box {
+  margin-top: 20px;
+  font-size: large;
+}
+.search-box>input {
+  width: 50%;
+  margin: auto;
+}
+
+.row > .column {
+  padding: 0 8px;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Create four equal columns that floats next to eachother */
+.column {
+  float: left;
+  width: 25%;
+  margin-bottom: 20px;
+}
+.column > img{
+  margin: auto;
+  display: block;
+}
+.display-block {
+  display: block !important;
+}
+.display-none {
+  display: none !important;
+}
+.modal {
+  position: fixed;
+  z-index: 1;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: black;
+}
+.modalContent {
+  position: relative;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 0;
+  width: 90%;
+  max-width: 1200px;
+}
+.close {
+  color: white!important;
+  position: absolute;
+  top: 10px;
+  right: 25px;
+  font-size: 35px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #999;
+  text-decoration: none;
+  cursor: pointer;
+}
+.mySlides {
+  display: none;
+  height: 100%;
+}
+.mySlides>img{
+  width:250px !important;
+}
+.prevSlide,
+.nextSlide {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -50px;
+  color: blue;
+  font-weight: bold;
+  font-size: 20px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.nextSlide {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+.prevSlide {
+  left: 0;
+}
+.prevSlide:hover,
+.nextSlide:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+/*.captionContainer {
+  text-align: center;
+  background-color: black;
+  padding: 2px 16px;
+  color: white;
+}*/
+
+img.demo {
+  opacity: 0.6;
+}
+
+.activeSlide,.demo:hover {
+  opacity: 1 !important;
+}
+
+img.hover-shadow {
+  transition: 0.3s
+}
+
+.hover-shadow:hover {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
+}
+
+.thumbnailContainer {
+  display: flex;
+  flex-direction: row;
+  margin-top: 50px;
+  padding-top: 16px;
+  overflow-x: scroll !important;
+}
